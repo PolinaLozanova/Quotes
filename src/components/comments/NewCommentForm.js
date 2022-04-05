@@ -1,13 +1,14 @@
 import { useRef, useEffect } from "react";
 
 import classes from "./NewCommentForm.module.css";
-import useHttp from "../../hooks/hooks/use-http";
+import useHttp from "../../hooks/hooks/use-http-redux";
 import { addComment } from "../../lib/lib/api";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import { ADD_COMMENT } from "../../store";
 
 const NewCommentForm = (props) => {
   const commentTextRef = useRef();
-  const { sendRequest, status, error } = useHttp(addComment);
+  const { sendRequest, status, error } = useHttp(addComment, ADD_COMMENT);
 
   const { onAddedComment } = props;
 
