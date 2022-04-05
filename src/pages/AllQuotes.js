@@ -1,5 +1,5 @@
 import QuoteList from "../components/quotes/QuoteList";
-import useHttp from "../hooks/hooks/use-http";
+import useHttp from "../hooks/hooks/use-http-redux";
 import { getAllQuotes } from "../lib/lib/api";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
@@ -7,6 +7,7 @@ import NoQuotesFound from "../components/quotes/NoQuotesFound";
 import { useHistory, useLocation } from "react-router-dom";
 
 import { DragDropContext } from "react-beautiful-dnd";
+import { FETCH_ALL } from "../store";
 
 const AllQuotes = () => {
   const [quotesOrder, setQuotesOrder] = useState([]);
@@ -20,7 +21,7 @@ const AllQuotes = () => {
     status,
     data: fetchQuotes,
     error,
-  } = useHttp(getAllQuotes, true);
+  } = useHttp(getAllQuotes, FETCH_ALL);
 
   useEffect(() => {
     sendRequest();

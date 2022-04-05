@@ -1,10 +1,11 @@
 import { useParams, Route, Link, useRouteMatch } from "react-router-dom";
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
-import useHttp from "../hooks/hooks/use-http";
+import useHttp from "../hooks/hooks/use-http-redux";
 import { getSingleQuote } from "../lib/lib/api";
 import { useEffect } from "react";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
+import { QUOTE_DETAILS } from "../store";
 
 const QuoteDetail = () => {
   const params = useParams();
@@ -14,7 +15,7 @@ const QuoteDetail = () => {
     status,
     data: loadedQuote,
     error,
-  } = useHttp(getSingleQuote, true);
+  } = useHttp(getSingleQuote, QUOTE_DETAILS);
 
   useEffect(() => {
     sendRequest(params.quoteId);
@@ -35,7 +36,7 @@ const QuoteDetail = () => {
     return <p className="centered focused">{error}</p>;
   }
 
-  if (!loadedQuote.text) {
+  if (!loadedQuote) {
     return <p>No quote found!</p>;
   }
 
