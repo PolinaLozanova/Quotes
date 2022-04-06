@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 import NoQuotesFound from "../components/quotes/NoQuotesFound";
 import { useHistory, useLocation } from "react-router-dom";
+import classes from "../components/quotes/QuoteList.module.css";
 
 import { DragDropContext } from "react-beautiful-dnd";
 import { FETCH_ALL } from "../store";
@@ -56,10 +57,29 @@ const AllQuotes = () => {
     return <NoQuotesFound />;
   }
 
-  const dragStartHandler = () => {
-    history.replace({
+  const sort = (order, data, ascending) => {
+    return order.sort((quoteA, quoteB) => {
+      if (ascending) {
+        return data[quoteA].author > data[quoteB].author ? 1 : -1;
+      } else {
+        return data[quoteA].author > data[quoteB].author ? -1 : 1;
+      }
+    });
+  };
+
+  const queryParam = new URLSearchParams(location.search);
+  const isSortingAscending = queryParam.get("sort") === "asc";
+
+  let sorted = quotesOrder;
+
+  if (queryParam.get("sort") !== null) {
+    sorted = sort(quotesOrder, quotesData, isSortingAscending);
+  }
+
+  const changeSortingHandler = () => {
+    history.push({
       pathname: location.pathname,
-      search: "",
+      search: `?sort=${isSortingAscending ? "desc" : "asc"}`,
     });
   };
 
@@ -76,24 +96,27 @@ const AllQuotes = () => {
     }
 
     const items = Array.from(quotesOrder);
-    //console.log("items begin", JSON.stringify(items));
-
     const [item] = items.splice(source.index, 1);
-
     items.splice(destination.index, 0, item);
-    // console.log("source.index", source.index);
-    // console.log("destination.index", destination.index);
 
-    setQuotesOrder((prevState) => {
-      // console.log("prevState", JSON.stringify(prevState));
-      // console.log("items newState", JSON.stringify(items));
-      return items;
-    });
+    setQuotesOrder(items);
+
+    if (JSON.stringify(quotesOrder) !== JSON.stringify(items)) {
+      history.replace({
+        pathname: location.pathname,
+        search: "",
+      });
+    }
   };
 
   return (
-    <DragDropContext onDragStart={dragStartHandler} onDragEnd={dragEndHandler}>
-      <QuoteList quotesOrder={quotesOrder} quotesData={quotesData} />
+    <DragDropContext onDragEnd={dragEndHandler}>
+      <div className={classes.sorting}>
+        <button onClick={changeSortingHandler}>
+          Sort {isSortingAscending ? "Descending" : "Ascending"}
+        </button>
+      </div>
+      <QuoteList quotesData={quotesData} sorted={sorted} />
     </DragDropContext>
   );
 };
