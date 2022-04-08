@@ -8,6 +8,11 @@ const MainNavigation = () => {
       <nav className={classes.nav}>
         <ul>
           <li>
+            <NavLink activeClassName={classes.active} to="/auth">
+              Login
+            </NavLink>
+          </li>
+          <li>
             <NavLink activeClassName={classes.active} to="/quotes">
               All Quotes
             </NavLink>
@@ -16,6 +21,9 @@ const MainNavigation = () => {
             <NavLink activeClassName={classes.active} to="/new-quote">
               Add Quote
             </NavLink>
+          </li>
+          <li>
+            <button>Logout</button>
           </li>
         </ul>
       </nav>

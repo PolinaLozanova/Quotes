@@ -97,3 +97,29 @@ export async function getAllComments(quoteId) {
 
   return transformedComments;
 }
+
+export const fetchAuth = async (authData) => {
+  const response = await fetch(authData.url, {
+    method: "POST",
+    body: JSON.stringify({
+      email: authData.email,
+      password: authData.password,
+      returnSecureToken: true,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    let errorMessage = "Authentication failed!";
+    if (data && data.error && data.error.message) {
+      errorMessage = data.error.message;
+    }
+    throw new Error(errorMessage);
+  }
+
+  return data;
+};

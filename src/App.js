@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 import Layout from "./components/layout/Layout";
 import LoadingSpinner from "./components/UI/LoadingSpinner";
+import AuthPage from "./pages/AuthPage";
 
 const NewQuote = React.lazy(() => import("./pages/NewQuote"));
 const QuoteDetail = React.lazy(() => import("./pages/QuoteDetail"));
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route path="/quotes/:quoteId">
             <QuoteDetail />
+          </Route>
+          <Route path="/auth">
+            <AuthPage />
           </Route>
           <Route path="/new-quote">
             <NewQuote />
