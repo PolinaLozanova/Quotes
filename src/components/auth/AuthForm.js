@@ -3,8 +3,6 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 
 import classes from "./AuthForm.module.css";
 
-let FIREBASE_AUTH_URL;
-
 const AuthForm = (props) => {
   const emailInput = useRef();
   const passwordInput = useRef();
@@ -22,6 +20,7 @@ const AuthForm = (props) => {
     const enteredEmail = emailInput.current.value;
     const enteredPassword = passwordInput.current.value;
 
+    let FIREBASE_AUTH_URL;
     if (isLogin) {
       FIREBASE_AUTH_URL =
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBIWpubKQujovRt_tuaGclXXzt84bZJiD8";
