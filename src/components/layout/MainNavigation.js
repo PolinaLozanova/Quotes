@@ -16,6 +16,9 @@ const MainNavigation = () => {
       <div className={classes.logo}>Great Quotes</div>
       <nav className={classes.nav}>
         <ul>
+          {isLoggedIn && (
+            <li className={classes.username}>{authContext.username}</li>
+          )}
           {!isLoggedIn && (
             <li>
               <NavLink activeClassName={classes.active} to="/auth">

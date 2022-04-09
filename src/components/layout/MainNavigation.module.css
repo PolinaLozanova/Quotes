@@ -47,3 +47,7 @@
   cursor: pointer;
   margin: 0;
 }
+
+.nav .username {
+  color: #fff;
+}
