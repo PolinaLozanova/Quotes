@@ -20,18 +20,34 @@
   padding: 0;
 }
 
-.nav li {
+.nav li,
+.nav li button {
   margin-left: 1.5rem;
   font-size: 1.25rem;
 }
 
-.nav a {
+.nav a,
+.nav button {
   text-decoration: none;
   color: #88dfdf;
 }
 
 .nav a:hover,
 .nav a:active,
-.nav a.active {
+.nav a.active,
+.nav button:hover,
+.nav button:active,
+.nav button.active {
   color: #e6fcfc;
+}
+
+.nav button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  margin: 0;
+}
+
+.nav .username {
+  color: #fff;
 }

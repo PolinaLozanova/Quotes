@@ -5,6 +5,7 @@ export const NEW_QUOTE = "newQuote";
 export const QUOTE_DETAILS = "quoteDetails";
 export const GET_ALL_COMMENTS = "getAllComments";
 export const ADD_COMMENT = "addComment";
+export const FETCH_AUTH = "fetchAuth";
 
 const initialState = {
   [FETCH_ALL]: {
@@ -28,6 +29,11 @@ const initialState = {
     status: null,
   },
   [ADD_COMMENT]: {
+    data: null,
+    error: null,
+    status: null,
+  },
+  [FETCH_AUTH]: {
     data: null,
     error: null,
     status: null,
