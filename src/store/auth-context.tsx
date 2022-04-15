@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 
 const AuthContext = React.createContext({
-  token: "",
+  token: null,
   isLoggedIn: false,
-  login: (token, username) => {},
+  login: (token: any, username: string) => {},
   logout: () => {},
   username: "",
 });
 
-export const AuthContextProvider = (props) => {
+export const AuthContextProvider = (props: any) => {
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState("");
 
   const userIsLoggedIn = !!token; // !! convents the truthy or falsey value to true or false boolean value
 
-  const loginHandler = (token, username) => {
+  const loginHandler = (token: any, username: string) => {
     setToken(token);
     setUsername(username);
   };

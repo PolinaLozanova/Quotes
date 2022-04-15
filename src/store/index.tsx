@@ -7,6 +7,8 @@ export const GET_ALL_COMMENTS = "getAllComments";
 export const ADD_COMMENT = "addComment";
 export const FETCH_AUTH = "fetchAuth";
 
+export type RootState = { data: any; error: any; status: string };
+
 const initialState = {
   [FETCH_ALL]: {
     data: null,
@@ -40,7 +42,7 @@ const initialState = {
   },
 };
 
-const httpReducer = (state = initialState, action) => {
+const httpReducer = (state = initialState, action: any) => {
   if (action.type === "SEND") {
     return {
       ...state,

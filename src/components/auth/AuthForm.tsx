@@ -1,11 +1,19 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import LoadingSpinner from "../UI/LoadingSpinner";
 
 import classes from "./AuthForm.module.css";
 
-const AuthForm = (props) => {
-  const emailInput = useRef();
-  const passwordInput = useRef();
+const AuthForm: React.FC<{
+  onAuthentication: (data: {
+    url: string;
+    email: string;
+    password: string;
+  }) => void;
+  status: string;
+  error: string;
+}> = (props) => {
+  const emailInput = useRef<HTMLInputElement>(null);
+  const passwordInput = useRef<HTMLInputElement>(null);
   const [isLogin, setIsLogin] = useState(true);
 
   const { onAuthentication, status, error } = props;
@@ -14,13 +22,14 @@ const AuthForm = (props) => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const enteredEmail = emailInput.current.value;
-    const enteredPassword = passwordInput.current.value;
+    const enteredEmail = emailInput.current!.value;
+    const enteredPassword = passwordInput.current!.value;
 
-    let FIREBASE_AUTH_URL;
+    let FIREBASE_AUTH_URL: string;
+
     if (isLogin) {
       FIREBASE_AUTH_URL =
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBIWpubKQujovRt_tuaGclXXzt84bZJiD8";

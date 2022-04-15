@@ -11,7 +11,7 @@ const QuoteDetail = React.lazy(() => import("./pages/QuoteDetail"));
 const AllQuotes = React.lazy(() => import("./pages/AllQuotes"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 
-function App() {
+const App: React.FC = () => {
   const authContext = useContext(AuthContext);
   const isLoggedIn = authContext.isLoggedIn;
 
@@ -52,6 +52,6 @@ function App() {
       </Suspense>
     </Layout>
   );
-}
+};
 
 export default App;

@@ -10,12 +10,12 @@ import CommentsList from "./CommentsList";
 import { GET_ALL_COMMENTS } from "../../store";
 import AuthContext from "../../store/auth-context";
 
-const Comments = () => {
+const Comments: React.FC = () => {
   const authContext = useContext(AuthContext);
   const isLoggedIn = authContext.isLoggedIn;
 
   const [isAddingComment, setIsAddingComment] = useState(false);
-  const params = useParams();
+  const params = useParams<{ quoteId: string }>();
 
   const { quoteId } = params;
 
@@ -37,7 +37,7 @@ const Comments = () => {
     sendRequest(quoteId);
   }, [sendRequest, quoteId]);
 
-  let comments;
+  let comments: any;
 
   if (status === "pending") {
     comments = (

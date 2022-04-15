@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 import classes from "./NewCommentForm.module.css";
 import useHttp from "../../hooks/hooks/use-http-redux";
@@ -6,8 +6,11 @@ import { addComment } from "../../lib/lib/api";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import { ADD_COMMENT } from "../../store";
 
-const NewCommentForm = (props) => {
-  const commentTextRef = useRef();
+const NewCommentForm: React.FC<{
+  onAddedComment: () => void;
+  quoteId: string;
+}> = (props) => {
+  const commentTextRef = useRef<HTMLTextAreaElement>(null);
   const { sendRequest, status, error } = useHttp(addComment, ADD_COMMENT);
 
   const { onAddedComment } = props;
@@ -18,9 +21,9 @@ const NewCommentForm = (props) => {
     }
   }, [onAddedComment, status, error]);
 
-  const submitFormHandler = (event) => {
+  const submitFormHandler = (event: React.FormEvent) => {
     event.preventDefault();
-    const enteredText = commentTextRef.current.value;
+    const enteredText = commentTextRef.current!.value;
     // optional: Could validate here
 
     sendRequest({
@@ -38,7 +41,7 @@ const NewCommentForm = (props) => {
       )}
       <div className={classes.control} onSubmit={submitFormHandler}>
         <label htmlFor="comment">Your Comment</label>
-        <textarea id="comment" rows="5" ref={commentTextRef}></textarea>
+        <textarea id="comment" rows={5} ref={commentTextRef}></textarea>
       </div>
       <div className={classes.actions}>
         <button className="btn">Add Comment</button>

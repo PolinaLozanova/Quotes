@@ -7,7 +7,7 @@ import NoQuotesFound from "../components/quotes/NoQuotesFound";
 import { useHistory, useLocation } from "react-router-dom";
 import classes from "../components/quotes/QuoteList.module.css";
 
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { FETCH_ALL } from "../store";
 
 const AllQuotes = () => {
@@ -25,18 +25,21 @@ const AllQuotes = () => {
   } = useHttp(getAllQuotes, FETCH_ALL);
 
   useEffect(() => {
-    sendRequest();
+    sendRequest(getAllQuotes);
   }, [sendRequest]);
 
   useEffect(() => {
     if (!fetchQuotes) {
       return;
     }
-    setQuotesOrder(fetchQuotes.map((item) => item.id));
-    const data = {};
-    fetchQuotes.forEach((item) => {
-      data[item.id] = { author: item.author, text: item.text };
-    });
+    setQuotesOrder(fetchQuotes.map((item: { id: string }) => item.id));
+
+    let data: { [key: string]: { author: string; text: string } } = {};
+    fetchQuotes.forEach(
+      (item: { id: string; author: string; text: string }) => {
+        data[item.id] = { author: item.author, text: item.text };
+      }
+    );
 
     setQuotesData(data);
   }, [fetchQuotes]);
@@ -57,8 +60,8 @@ const AllQuotes = () => {
     return <NoQuotesFound />;
   }
 
-  const sort = (order, data, ascending) => {
-    return order.sort((quoteA, quoteB) => {
+  const sort = (order: string[], data: any, ascending: boolean) => {
+    return order.sort((quoteA: string, quoteB: string) => {
       if (ascending) {
         return data[quoteA].author > data[quoteB].author ? 1 : -1;
       } else {
@@ -70,7 +73,7 @@ const AllQuotes = () => {
   const queryParam = new URLSearchParams(location.search);
   const isSortingAscending = queryParam.get("sort") === "asc";
 
-  let sorted = quotesOrder;
+  let sorted: string[] = quotesOrder;
 
   if (queryParam.get("sort") !== null) {
     sorted = sort(quotesOrder, quotesData, isSortingAscending);
@@ -83,7 +86,7 @@ const AllQuotes = () => {
     });
   };
 
-  const dragEndHandler = (result) => {
+  const dragEndHandler = (result: DropResult) => {
     const { destination, source } = result;
     if (!destination) {
       return;

@@ -3,7 +3,10 @@ import classes from "./QuoteList.module.css";
 
 import { Droppable } from "react-beautiful-dnd";
 
-const QuoteList = (props) => {
+const QuoteList: React.FC<{
+  quotesData: { [key: string]: any };
+  sorted: string[];
+}> = (props) => {
   const { quotesData, sorted } = props;
 
   return (

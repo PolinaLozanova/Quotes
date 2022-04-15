@@ -1,20 +1,23 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./QuoteForm.module.css";
 import { Prompt } from "react-router-dom";
 
-const QuoteForm = (props) => {
-  const authorInputRef = useRef();
-  const textInputRef = useRef();
+const QuoteForm: React.FC<{
+  onAddQuote: (data: { author: string; text: string }) => void;
+  isLoading: boolean;
+}> = (props) => {
+  const authorInputRef = useRef<HTMLInputElement>(null);
+  const textInputRef = useRef<HTMLTextAreaElement>(null);
   const [isEntering, setIsEntering] = useState(false);
 
-  function submitFormHandler(event) {
+  function submitFormHandler(event: React.FormEvent) {
     event.preventDefault();
 
-    const enteredAuthor = authorInputRef.current.value;
-    const enteredText = textInputRef.current.value;
+    const enteredAuthor = authorInputRef.current!.value;
+    const enteredText = textInputRef.current!.value;
 
     // optional: Could validate here
 
@@ -50,7 +53,7 @@ const QuoteForm = (props) => {
           </div>
           <div className={classes.control}>
             <label htmlFor="text">Text</label>
-            <textarea id="text" rows="5" ref={textInputRef}></textarea>
+            <textarea id="text" rows={5} ref={textInputRef}></textarea>
           </div>
           <div className={classes.actions}>
             <button onClick={finishEnteringHandler} className="btn">

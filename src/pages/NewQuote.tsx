@@ -15,7 +15,7 @@ const NewQuote = () => {
     }
   }, [status, history]);
 
-  const addQuoteHandler = (quoteData) => {
+  const addQuoteHandler = (quoteData: { author: string; text: string }) => {
     sendRequest(quoteData);
   };
 

@@ -2,16 +2,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useCallback, useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import { useHistory } from "react-router-dom";
+import { RootState } from "../../store";
 
-const useHttp = (requestFunction, origin) => {
-  const httpState = useSelector((state) => state);
+const useHttp = (requestFunction: (data: any) => Promise<any>, origin: any) => {
+  const httpState = useSelector((state: RootState[]) => state);
   const dispatch = useDispatch();
 
   const history = useHistory();
   const authContext = useContext(AuthContext);
 
   const sendRequest = useCallback(
-    async (requestData) => {
+    async (requestData: any) => {
       dispatch({ type: "SEND", payload: { origin } });
       try {
         const responseData = await requestFunction(requestData);
@@ -20,7 +21,7 @@ const useHttp = (requestFunction, origin) => {
           history.replace("/");
         }
         dispatch({ type: "SUCCESS", payload: { responseData, origin } });
-      } catch (error) {
+      } catch (error: any) {
         dispatch({
           type: "ERROR",
           payload: {

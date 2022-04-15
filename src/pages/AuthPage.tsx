@@ -3,10 +3,14 @@ import useHttp from "../hooks/hooks/use-http-redux";
 import { fetchAuth } from "../lib/lib/api";
 import { FETCH_AUTH } from "../store";
 
-const AuthPage = () => {
+const AuthPage: React.FC = () => {
   const { sendRequest, status, error } = useHttp(fetchAuth, FETCH_AUTH);
 
-  const authenticationHandler = (authData) => {
+  const authenticationHandler = (authData: {
+    url: string;
+    email: string;
+    password: string;
+  }) => {
     sendRequest(authData);
   };
 

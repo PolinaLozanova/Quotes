@@ -1,6 +1,8 @@
-import classes from './HighlightedQuote.module.css';
+import classes from "./HighlightedQuote.module.css";
 
-const HighlightedQuote = (props) => {
+const HighlightedQuote: React.FC<{ text: string; author: string }> = (
+  props
+) => {
   return (
     <figure className={classes.quote}>
       <p>{props.text}</p>

@@ -2,7 +2,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { Link } from "react-router-dom";
 import classes from "./QuoteItem.module.css";
 
-const QuoteItem = (props) => {
+function QuoteItem(props: any) {
   return (
     <Draggable draggableId={props.id} index={props.index}>
       {(provided) => (
@@ -25,6 +25,6 @@ const QuoteItem = (props) => {
       )}
     </Draggable>
   );
-};
+}
 
 export default QuoteItem;

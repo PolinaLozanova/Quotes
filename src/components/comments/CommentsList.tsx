@@ -1,7 +1,9 @@
-import CommentItem from './CommentItem';
-import classes from './CommentsList.module.css';
+import CommentItem from "./CommentItem";
+import classes from "./CommentsList.module.css";
 
-const CommentsList = (props) => {
+const CommentsList: React.FC<{ comments: { id: string; text: string }[] }> = (
+  props
+) => {
   return (
     <ul className={classes.comments}>
       {props.comments.map((comment) => (
