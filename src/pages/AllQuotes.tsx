@@ -60,7 +60,11 @@ const AllQuotes = () => {
     return <NoQuotesFound />;
   }
 
-  const sort = (order: string[], data: any, ascending: boolean) => {
+  const sort = (
+    order: string[],
+    data: { [key: string]: { author: string } },
+    ascending: boolean
+  ) => {
     return order.sort((quoteA: string, quoteB: string) => {
       if (ascending) {
         return data[quoteA].author > data[quoteB].author ? 1 : -1;

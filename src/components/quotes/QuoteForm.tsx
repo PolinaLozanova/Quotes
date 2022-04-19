@@ -13,7 +13,7 @@ const QuoteForm: React.FC<{
   const textInputRef = useRef<HTMLTextAreaElement>(null);
   const [isEntering, setIsEntering] = useState(false);
 
-  function submitFormHandler(event: React.FormEvent) {
+  const submitFormHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
     const enteredAuthor = authorInputRef.current!.value;
@@ -22,7 +22,7 @@ const QuoteForm: React.FC<{
     // optional: Could validate here
 
     props.onAddQuote({ author: enteredAuthor, text: enteredText });
-  }
+  };
 
   const formFocusHandler = () => {
     setIsEntering(true);

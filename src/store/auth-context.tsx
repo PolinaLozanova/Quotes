@@ -8,7 +8,11 @@ const AuthContext = React.createContext({
   username: "",
 });
 
-export const AuthContextProvider = (props: any) => {
+type Props = {
+  children: React.ReactNode;
+};
+
+export const AuthContextProvider: React.FC<Props> = (props) => {
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState("");
 
